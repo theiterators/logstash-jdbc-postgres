@@ -1,0 +1,14 @@
+version: '2'
+services:
+  logstash:
+    container_name: logstash
+    hostname: production-1
+    image: iterators/logstash-jdbc-postgres:latest
+    restart: always
+    environment:
+      JDBC_CONN_STR: jdbc:postgresql://your_postgresql_address:5432/logs?user=YOUR_USER&password=YOUR_PASSWORD
+      TABLE: production
+      LOG_PATH: /logs/backend.log
+    volumes:
+      - ./logstash:/usr/share/logstash/pipeline/
+      - ./logs:/logs
